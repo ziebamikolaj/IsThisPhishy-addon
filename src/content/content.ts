@@ -1,101 +1,21 @@
+// src/content/content.ts
+import { Readability } from "@mozilla/readability";
 import "../styles/globals.css";
 
-const MAX_TEXT_CHUNKS = 5;
-const MIN_CHUNK_LENGTH = 100;
-const TARGET_CHUNK_LENGTH = 300;
+const MAX_CHUNKS_FOR_ANALYSIS = 5;
+const CHUNK_SIZE = 2000;
 
-function isVisible(element: HTMLElement | null): boolean {
-  if (!(element instanceof HTMLElement)) return false;
-  const style = window.getComputedStyle(element);
-  const rect = element.getBoundingClientRect();
-  return (
-    style.display !== "none" &&
-    style.visibility !== "hidden" &&
-    style.opacity !== "0" &&
-    element.offsetParent !== null &&
-    rect.width > 0 &&
-    rect.height > 0 &&
-    rect.top < window.innerHeight &&
-    rect.bottom > 0 &&
-    rect.left < window.innerWidth &&
-    rect.right > 0
-  );
-}
+function extractAndSendContent() {
+  // Use a clone of the document to avoid side-effects on the live page.
+  const documentClone = document.cloneNode(true) as Document;
+  const reader = new Readability(documentClone);
+  const article = reader.parse();
 
-function extractVisibleTextChunks(): string[] {
-  const chunks: string[] = [];
-  let currentChunk = "";
-  const BANNED_TAGS = [
-    "script",
-    "style",
-    "noscript",
-    "iframe",
-    "canvas",
-    "svg",
-    "path",
-    "head",
-    "meta",
-    "link",
-  ];
-  // const LOW_PRIORITY_TAGS = ['button', 'a', 'nav', 'footer', 'header', 'figcaption', 'aside', 'details', 'summary']; // Zakomentowane, bo nieużywane
-
-  function traverseNodes(node: Node, depth = 0) {
-    if (chunks.length >= MAX_TEXT_CHUNKS * 2 || depth > 20) return;
-
-    if (node.nodeType === Node.TEXT_NODE) {
-      const parentElement = node.parentNode as HTMLElement;
-      if (parentElement && isVisible(parentElement)) {
-        const text = node.nodeValue?.replace(/\s+/g, " ").trim();
-        if (text && text.length > 5) {
-          const tagName = parentElement.tagName.toLowerCase();
-          if (BANNED_TAGS.includes(tagName)) return;
-
-          currentChunk += text + " ";
-          if (currentChunk.length >= TARGET_CHUNK_LENGTH) {
-            chunks.push(currentChunk.trim());
-            currentChunk = "";
-            if (chunks.length >= MAX_TEXT_CHUNKS * 2) return;
-          }
-        }
-      }
-    } else if (node.nodeType === Node.ELEMENT_NODE) {
-      const element = node as HTMLElement;
-      const tagName = element.tagName.toLowerCase();
-      if (BANNED_TAGS.includes(tagName)) return;
-
-      if (isVisible(element)) {
-        for (let i = 0; i < node.childNodes.length; i++) {
-          traverseNodes(node.childNodes[i], depth + 1);
-          if (chunks.length >= MAX_TEXT_CHUNKS * 2) return;
-        }
-      }
-    }
-  }
-
-  if (document.body) traverseNodes(document.body);
-
-  if (currentChunk.trim().length >= MIN_CHUNK_LENGTH)
-    chunks.push(currentChunk.trim());
-
-  // console.log("[ContentScript] Raw chunks extracted:", chunks.length); // Możesz odkomentować do debugowania
-  const filteredChunks = chunks
-    .filter((chunk) => chunk.length >= MIN_CHUNK_LENGTH)
-    .map((chunk) => chunk.substring(0, TARGET_CHUNK_LENGTH * 2))
-    .sort((a, b) => b.length - a.length)
-    .slice(0, MAX_TEXT_CHUNKS);
-  // console.log("[ContentScript] Filtered chunks for analysis:", filteredChunks.length); // Możesz odkomentować
-  return filteredChunks;
-}
-
-function sendTextToBackground() {
-  const textChunks = extractVisibleTextChunks();
-  if (
-    document.body.innerText.trim().length < MIN_CHUNK_LENGTH &&
-    textChunks.length === 0
-  ) {
+  if (!article || !article.textContent) {
     console.log(
-      "[ContentScript] Page content too short or no significant text chunks found."
+      "[ContentScript] Readability found no content. Sending empty chunks."
     );
+    // Still send a message so the background script knows content analysis was attempted but failed.
     chrome.runtime.sendMessage({
       action: "analyzePageContent",
       url: window.location.href,
@@ -104,50 +24,66 @@ function sendTextToBackground() {
     return;
   }
 
+  const cleanText = article.textContent.replace(/\s+/g, " ").trim();
+  const chunks: string[] = [];
+  if (cleanText.length > 0) {
+    for (let i = 0; i < cleanText.length; i += CHUNK_SIZE) {
+      chunks.push(cleanText.substring(i, i + CHUNK_SIZE));
+    }
+  }
+
+  const finalChunks = chunks.slice(0, MAX_CHUNKS_FOR_ANALYSIS);
   console.log(
-    `[ContentScript] Sending ${textChunks.length} text chunks to background.`
+    `[ContentScript] Proactively sending ${finalChunks.length} chunks to background.`
   );
+
   chrome.runtime.sendMessage(
     {
       action: "analyzePageContent",
       url: window.location.href,
-      contentChunks: textChunks,
+      contentChunks: finalChunks,
     },
     (response) => {
-      if (chrome.runtime.lastError)
+      if (chrome.runtime.lastError) {
         console.warn(
-          "[CS] Error sending content:",
-          chrome.runtime.lastError.message
+          `[CS] Error sending content: ${chrome.runtime.lastError.message}`
         );
-      else if (response && !response.success)
-        console.warn("[CS] BG failed to process content:", response.error);
+      } else if (response && !response.success) {
+        console.warn(
+          "[CS] Background failed to process content:",
+          response.error
+        );
+      }
     }
   );
 }
 
+// This listener is now ONLY for handling manual refresh requests from the popup.
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "getTextContentFromPage") {
-    console.log("[ContentScript] Received getTextContentFromPage request.");
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        try {
-          sendTextToBackground();
-          sendResponse({ status: "processing_initiated_by_content" });
-        } catch (e) {
-          console.error(
-            "[ContentScript] Error in sendTextToBackground/sendResponse:",
-            e
-          );
-          sendResponse({
-            status: "error",
-            error: e instanceof Error ? e.message : String(e),
-          });
-        }
-      }, 50);
-    });
+    console.log("[ContentScript] Received manual refresh request.");
+    extractAndSendContent();
+    sendResponse({ status: "processing_initiated_by_manual_refresh" });
     return true;
   }
   return false;
 });
 
-console.log("[ContentScript] IsThisPhishy content script v1.0.3 loaded.");
+// Proactively run the analysis when the script is injected and the page is ready.
+if (
+  document.readyState === "complete" ||
+  document.readyState === "interactive"
+) {
+  // Small delay to ensure the page is fully settled.
+  setTimeout(extractAndSendContent, 500);
+} else {
+  window.addEventListener(
+    "load",
+    () => {
+      setTimeout(extractAndSendContent, 500);
+    },
+    { once: true }
+  );
+}
+
+console.log("[ContentScript] IsThisPhishy v1.2.0 loaded (proactive mode).");

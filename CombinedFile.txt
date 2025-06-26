@@ -1,4 +1,4 @@
-﻿Directory Structure:
+Directory Structure:
 --------------------
 |-- public
 -- src
@@ -9,6 +9,7 @@
     |-- lib
     |-- popup
     |   |-- components
+    |   |-- consts
     |   |-- hooks
     |   |-- services
     |   -- utils
@@ -18,12 +19,12 @@
 File Contents:
 --------------------
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\.gitignore
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\.gitignore
 --------------------
 node_modules
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\components.json
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\components.json
 --------------------
 {
   "$schema": "https://ui.shadcn.com/schema.json",
@@ -47,7 +48,7 @@ File: C:\Users\mikol\Desktop\IsThisPhishy-addon\components.json
 }
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\eslint.config.js
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\eslint.config.js
 --------------------
 import js from '@eslint/js'
 import globals from 'globals'
@@ -79,7 +80,7 @@ export default tseslint.config(
 )
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\index.html
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\index.html
 --------------------
 <!DOCTYPE html>
 <html lang="en">
@@ -98,55 +99,7 @@ File: C:\Users\mikol\Desktop\IsThisPhishy-addon\index.html
 </html>
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\package.json
---------------------
-{
-  "name": "isthisfishy-extension",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@radix-ui/react-progress": "^1.1.0",
-    "@radix-ui/react-slot": "^1.1.0",
-    "@radix-ui/react-switch": "^1.1.0",
-    "@radix-ui/react-tooltip": "^1.1.2",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.1",
-    "lucide-react": "^0.446.0",
-    "path": "^0.12.7",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.9.0",
-    "@types/chrome": "^0.0.237",
-    "@types/react": "^18.3.10",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "autoprefixer": "^10.4.20",
-    "eslint": "^9.9.0",
-    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
-    "eslint-plugin-react-refresh": "^0.4.9",
-    "globals": "^15.9.0",
-    "postcss": "^8.4.47",
-    "postcss-cli": "^11.0.0",
-    "tailwindcss": "^3.4.13",
-    "typescript": "^5.6.2",
-    "typescript-eslint": "^8.0.1",
-    "vite": "^5.4.1",
-    "vite-plugin-web-extension": "^4.4.3"
-  }
-}
-
---------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\postcss.config.js
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\postcss.config.js
 --------------------
 export default {
   plugins: {
@@ -156,7 +109,7 @@ export default {
 };
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\README.md
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\README.md
 --------------------
 # Hack yeah 2024 - Is this fishy ?
 
@@ -195,7 +148,7 @@ File: C:\Users\mikol\Desktop\IsThisPhishy-addon\README.md
   - AWS SNS
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\tailwind.config.ts
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\tailwind.config.ts
 --------------------
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -256,7 +209,7 @@ export default {
 };
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\tsconfig.json
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\tsconfig.json
 --------------------
 {
   "compilerOptions": {
@@ -284,12 +237,12 @@ File: C:\Users\mikol\Desktop\IsThisPhishy-addon\tsconfig.json
 }
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\tsconfig.tsbuildinfo
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\tsconfig.tsbuildinfo
 --------------------
 {"root":["./src/App.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/background/background.ts","./src/content/content.ts","./src/popup/main.tsx"],"version":"5.6.2"}
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\vite.config.ts
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\vite.config.ts
 --------------------
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
@@ -300,7 +253,7 @@ function generateManifest() {
   return {
     manifest_version: 3,
     name: "IsThisFishy Extension (Dev)",
-    version: "1.0.3", // Podbij wersję
+    version: "1.0.3",
     description: "A browser extension to detect fishy content - DEV MODE",
     action: {
       default_popup: "src/popup/index.html",
@@ -322,7 +275,7 @@ function generateManifest() {
       "48": "icon.png",
       "128": "icon.png",
     },
-    permissions: ["activeTab", "storage", "tabs", "action", "scripting"],
+    permissions: ["activeTab", "storage", "tabs", "scripting"],
     host_permissions: ["http://127.0.0.1:8000/"],
   };
 }
@@ -347,9 +300,8 @@ export default defineConfig(({ mode }) => {
   };
 });
 
-Skipping binary file: C:\Users\mikol\Desktop\IsThisPhishy-addon\public\icon.png
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\main.tsx
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\main.tsx
 --------------------
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -365,12 +317,12 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 );
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\vite-env.d.ts
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\vite-env.d.ts
 --------------------
 /// <reference types="vite/client" />
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\background\background.ts
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\background\background.ts
 --------------------
 // src/background/background.ts
 import {
@@ -379,6 +331,7 @@ import {
   PageContentAiAnalysis,
   StoredDomainData,
 } from "@/types/domainAnalysis";
+import { calculateTrustScore } from "@/popup/services/scoreCalculator";
 
 const API_BASE_URL = "http://127.0.0.1:8000/api/v1";
 
@@ -390,74 +343,59 @@ const getDomainFromUrl = (url: string): string => {
     return "";
   }
 };
+
 const updateBadge = (text: string, color: string = "#777777") => {
   try {
     chrome.action.setBadgeText({ text });
     chrome.action.setBadgeBackgroundColor({ color });
-    console.log(`[BG] Badge updated: text="${text}", color="${color}"`);
   } catch (e) {
-    console.warn(
-      "[BG] Failed to update badge, extension context likely invalid.",
-      e
-    );
+    console.warn("[BG] Failed to update badge.", e);
+  }
+};
+
+const updateBadgeWithScore = (
+  data: StoredDomainData,
+  urlForAnalysis: string
+) => {
+  if (!data) return;
+  const { score } = calculateTrustScore(data, urlForAnalysis);
+  if (score !== null) {
+    let color = "#10B981";
+    if (score < 40) color = "#EF4444";
+    else if (score < 70) color = "#F59E0B";
+    updateBadge(score.toString(), color);
+  } else if (data.error) {
+    updateBadge("!", "#EF4444");
+  } else {
+    updateBadge("?", "#777777");
   }
 };
 
 const fetchTextAnalysis = async (
   textToAnalyze: string
 ): Promise<PhishingTextAnalysis | null> => {
-  const textSnippet =
-    textToAnalyze.substring(0, 100) + (textToAnalyze.length > 100 ? "..." : "");
-  console.log(
-    `[BG] fetchTextAnalysis: Attempting to analyze text snippet: "${textSnippet}"`
-  );
   try {
     const response = await fetch(`${API_BASE_URL}/check_phishing_text`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text_to_analyze: textToAnalyze }),
     });
-    if (!response.ok) {
-      const errorBody = await response.text().catch(() => "No error body");
-      console.error(
-        `[BG] fetchTextAnalysis API Error for snippet "${textSnippet}": ${response.status}`,
-        errorBody
-      );
-      return null;
-    }
-    const data: PhishingTextAnalysis = await response.json();
-    console.log(
-      `[BG] fetchTextAnalysis API Success for snippet "${textSnippet}":`,
-      data
-    );
-    return data;
+    if (!response.ok) return null;
+    return await response.json();
   } catch (e) {
-    console.error(
-      `[BG] fetchTextAnalysis Network Error for snippet "${textSnippet}":`,
-      e
-    );
+    console.error("[BG] fetchTextAnalysis Network Error:", e);
     return null;
   }
 };
 
 const performFullAnalysis = async (
   urlToAnalyze: string,
-  contentChunksToAnalyze?: string[]
+  contentChunksForAnalysis: string[] = []
 ): Promise<StoredDomainData> => {
   const domain = getDomainFromUrl(urlToAnalyze);
-  if (!domain) {
-    console.warn(
-      "[BG] performFullAnalysis: Invalid domain from URL:",
-      urlToAnalyze
-    );
-    return { error: "Invalid domain", lastChecked: Date.now() };
-  }
+  if (!domain) return { error: "Invalid domain", lastChecked: Date.now() };
+
   updateBadge("...", "#F59E0B");
-  console.log(
-    `[BG] Performing full analysis for ${urlToAnalyze}. Content chunks: ${
-      contentChunksToAnalyze?.length || 0
-    }`
-  );
 
   try {
     const [domainDetailsResponse, urlTextAnalysisResult] = await Promise.all([
@@ -466,93 +404,54 @@ const performFullAnalysis = async (
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: urlToAnalyze }),
       }),
-      fetchTextAnalysis(urlToAnalyze), // Analiza samego URL
+      fetchTextAnalysis(urlToAnalyze),
     ]);
 
-    console.log(
-      `[BG] performFullAnalysis - URL AI Analysis result for ${urlToAnalyze}:`,
-      urlTextAnalysisResult
-    );
-
     if (!domainDetailsResponse.ok) {
-      const errorData = await domainDetailsResponse
-        .json()
-        .catch(() => ({ detail: "Unknown API error (domain)" }));
-      updateBadge("!", "#EF4444");
-      console.error(`[BG] Domain analysis API Error for ${domain}:`, errorData);
       return {
-        error: `API Error (domain):${
-          errorData.detail || domainDetailsResponse.statusText
-        }`,
+        error: "API Error (domain details)",
         lastChecked: Date.now(),
       };
     }
     const domainAnalysis: DomainAnalysisDetails =
       await domainDetailsResponse.json();
     if (domainAnalysis.error) {
-      updateBadge("?", "#EF4444");
-      console.warn(
-        `[BG] API returned error in domain data for ${domain}:`,
-        domainAnalysis.error
-      );
       return { error: domainAnalysis.error, lastChecked: Date.now() };
     }
-    console.log("[BG] Domain analysis OK for", domain);
 
-    let pageContentAiAnalyses: PageContentAiAnalysis[] | null = null;
-    if (contentChunksToAnalyze && contentChunksToAnalyze.length > 0) {
-      pageContentAiAnalyses = [];
-      console.log(
-        `[BG] Analyzing ${contentChunksToAnalyze.length} content chunks for ${domain}`
-      );
-      const analysisPromises = contentChunksToAnalyze.map(
+    let pageContentAiResults: PageContentAiAnalysis[] = [];
+    if (contentChunksForAnalysis.length > 0) {
+      const analysisPromises = contentChunksForAnalysis.map(
         async (chunk, idx) => {
-          const result = await fetchTextAnalysis(chunk); // Użyj tej samej funkcji
+          const result = await fetchTextAnalysis(chunk);
           if (result) {
-            pageContentAiAnalyses?.push({
+            return {
               ...result,
               chunkIndex: idx,
-              originalChunk: chunk.substring(0, 100) + "...", // Przechowaj fragment dla debugowania
-            });
-          } else {
-            console.warn(
-              `[BG] Failed to analyze content chunk ${idx} for ${domain}`
-            );
+              originalChunk: chunk.substring(0, 100) + "...",
+            };
           }
+          return null;
         }
       );
-      await Promise.all(analysisPromises); // Czekaj na wszystkie analizy chunków
-      console.log(
-        `[BG] pageContentAiAnalyses for ${domain} (count: ${
-          pageContentAiAnalyses?.length || 0
-        }):`,
-        pageContentAiAnalyses
-      );
-    } else {
-      console.log(`[BG] No content chunks to analyze for ${domain}`);
-      pageContentAiAnalyses = []; // Ustaw pustą tablicę, jeśli nie ma chunków, zamiast null
+      pageContentAiResults = (await Promise.all(analysisPromises)).filter(
+        (r) => r !== null
+      ) as PageContentAiAnalysis[];
     }
 
     const storedData: StoredDomainData = {
       analysis: domainAnalysis,
       urlTextAnalysis: urlTextAnalysisResult,
-      pageContentAnalyses: pageContentAiAnalyses,
+      pageContentAnalyses: pageContentAiResults,
       lastChecked: Date.now(),
     };
-    console.log(
-      "[BG] StoredData to be saved for",
-      domain,
-      ":",
-      JSON.parse(JSON.stringify(storedData))
-    );
+
     chrome.storage.local.set({ [domain]: storedData });
+    updateBadgeWithScore(storedData, urlToAnalyze);
     return storedData;
   } catch (e) {
-    updateBadge("!", "#EF4444");
     const errorMsg = e instanceof Error ? e.message : String(e);
-    console.error(
-      `[BG] Network/Parsing Error in performFullAnalysis for ${domain}: ${errorMsg}`
-    );
+    updateBadge("!", "#EF4444");
     return {
       error: `Network/Parsing error: ${errorMsg}`,
       lastChecked: Date.now(),
@@ -560,288 +459,69 @@ const performFullAnalysis = async (
   }
 };
 
-const triggerAnalysisForUrl = async (
-  url: string,
-  forceContentFetch: boolean = false,
-  tabIdForContent?: number // Opcjonalny tabId
-) => {
-  const domain = getDomainFromUrl(url);
-  if (!domain) {
-    console.warn("[BG] triggerAnalysis: No domain for URL", url);
-    return;
-  }
-
-  console.log(
-    `[BG] triggerAnalysisForUrl: ${url}, forceContentFetch: ${forceContentFetch}, tabIdForContent: ${tabIdForContent}`
-  );
-
-  if (forceContentFetch && tabIdForContent) {
-    console.log(
-      "[BG] Requesting text from page:",
-      url,
-      "Tab ID:",
-      tabIdForContent
-    );
-    chrome.tabs.sendMessage(
-      tabIdForContent,
-      { action: "getTextContentFromPage" },
-      (responseFromContent) => {
-        // Ta odpowiedź jest z content.ts
-        if (chrome.runtime.lastError) {
-          console.warn(
-            `[BG] Error sending to content script for ${url} (tab ${tabIdForContent}): ${chrome.runtime.lastError.message}. Proceeding with URL-only analysis.`
-          );
-          performFullAnalysis(url, []).then((data) => {
-            // Przekaż puste chunki
-            chrome.runtime
-              .sendMessage({
-                action: "analysisUpdated",
-                domain,
-                data,
-                forUrl: url,
-              })
-              .catch((e) =>
-                console.warn(
-                  "[BG] Error sending analysisUpdated (no content fetch response):",
-                  e.message
-                )
-              );
-          });
-        } else if (responseFromContent?.status?.includes("processing")) {
-          console.log("[BG] Content script started processing text for:", url);
-          // Czekamy, aż content script wyśle 'analyzePageContent'
-        } else {
-          console.warn(
-            "[BG] Content script for",
-            url,
-            "responded unexpectedly or failed to start:",
-            responseFromContent,
-            ". Proceeding with URL-only analysis."
-          );
-          performFullAnalysis(url, []).then((data) => {
-            // Przekaż puste chunki
-            chrome.runtime
-              .sendMessage({
-                action: "analysisUpdated",
-                domain,
-                data,
-                forUrl: url,
-              })
-              .catch((e) =>
-                console.warn(
-                  "[BG] Error sending analysisUpdated (unexpected content response):",
-                  e.message
-                )
-              );
-          });
-        }
-      }
-    );
-  } else {
-    // Nie wymuszamy pobierania treści z content.ts
-    console.log(
-      `[BG] Performing analysis for ${domain} (no force content fetch, using existing/URL only).`
-    );
-    chrome.storage.local.get(domain, (result) => {
-      const cachedData: StoredDomainData | undefined = result[domain];
-      const fiveMinutes = 5 * 60 * 1000;
-      if (
-        cachedData?.analysis && // Upewnij się, że główne dane są
-        Date.now() - cachedData.lastChecked < fiveMinutes &&
-        typeof cachedData.urlTextAnalysis !== "undefined" && // Sprawdź czy urlTextAnalysis było zrobione
-        typeof cachedData.pageContentAnalyses !== "undefined" && // I czy pageContentAnalyses było zrobione (może być puste)
-        !cachedData.error // I czy nie ma zapisanego błędu
-      ) {
-        console.log(
-          "[BG] Using cached data for (no force content fetch):",
-          domain
-        );
+// This listener is now the main entry point for automatic analysis.
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "analyzePageContent") {
+    console.log(`[BG] Received content for analysis from ${message.url}`);
+    performFullAnalysis(message.url, message.contentChunks)
+      .then((data) => {
         chrome.runtime
           .sendMessage({
             action: "analysisUpdated",
-            domain,
-            data: cachedData,
-            forUrl: url,
+            domain: getDomainFromUrl(message.url),
+            data,
+            forUrl: message.url,
           })
-          .catch((e) =>
-            console.warn(
-              "[BG] Error sending analysisUpdated (cache):",
-              e.message
-            )
-          );
-      } else {
-        console.log(
-          "[BG] Cache miss/incomplete/error. Performing analysis with URL only for:",
-          url
-        );
-        performFullAnalysis(url, cachedData?.pageContentAnalyses || []).then(
-          (data) => {
-            // Przekaż istniejące pageContentAnalyses jeśli są, inaczej puste
-            chrome.runtime
-              .sendMessage({
-                action: "analysisUpdated",
-                domain,
-                data,
-                forUrl: url,
-              })
-              .catch((e) =>
-                console.warn(
-                  "[BG] Error sending analysisUpdated (no cache/no force):",
-                  e.message
-                )
-              );
-          }
-        );
-      }
-    });
-  }
-};
-
-const handleTabUpdate = async (url: string | undefined, tabId?: number) => {
-  if (url && (url.startsWith("http:") || url.startsWith("https:"))) {
-    console.log(`[BG] handleTabUpdate for URL: ${url}, TabID: ${tabId}`);
-    triggerAnalysisForUrl(url, false, tabId); // Domyślnie nie wymuszaj, ale przekaż tabId
-  } else {
-    console.log(
-      `[BG] handleTabUpdate: Skipped (not http/https or no URL): ${url}`
-    );
-    updateBadge("", "#777777");
-  }
-};
-
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.status === "complete" && tab.active && tab.url) {
-    console.log(
-      `[BG] onUpdated: complete & active for tab ${tabId}, url: ${tab.url}`
-    );
-    handleTabUpdate(tab.url, tabId);
-  }
-});
-chrome.tabs.onActivated.addListener(async (activeInfo) => {
-  chrome.tabs.get(activeInfo.tabId, (tab) => {
-    if (tab.url) {
-      console.log(`[BG] onActivated: tab ${activeInfo.tabId}, url: ${tab.url}`);
-      handleTabUpdate(tab.url, activeInfo.tabId);
-    }
-  });
-});
-chrome.runtime.onStartup.addListener(() => {
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    if (tabs[0]?.url) {
-      console.log(
-        `[BG] onStartup: active tab ${tabs[0].id}, url: ${tabs[0].url}`
-      );
-      handleTabUpdate(tabs[0].url, tabs[0].id);
-    }
-  });
-});
-chrome.windows.onFocusChanged.addListener((windowId) => {
-  if (windowId !== chrome.windows.WINDOW_ID_NONE) {
-    chrome.tabs.query({ active: true, windowId: windowId }, (tabs) => {
-      if (tabs[0]?.url) {
-        console.log(
-          `[BG] onFocusChanged: window ${windowId}, active tab ${tabs[0].id}, url: ${tabs[0].url}`
-        );
-        handleTabUpdate(tabs[0].url, tabs[0].id);
-      }
-    });
-  }
-});
-
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  console.log("[BG] Received message:", message, "From sender:", sender);
-  if (message.action === "requestAnalysisForCurrentTab") {
-    const tabToUse = sender.tab || message.tab; // Użyj zakładki z której przyszła wiadomość (popup), lub przekazanej
-    const urlToAnalyze = tabToUse?.url || message.url;
-    const tabIdForContent = tabToUse?.id;
-
-    if (urlToAnalyze) {
-      const domain = getDomainFromUrl(urlToAnalyze);
-      if (domain) {
-        console.log(
-          `[BG] requestAnalysisForCurrentTab for ${domain} (URL: ${urlToAnalyze}). Force content: ${!!message.forceContentRefresh}. Tab for content: ${tabIdForContent}`
-        );
-        triggerAnalysisForUrl(
-          urlToAnalyze,
-          !!message.forceContentRefresh,
-          tabIdForContent
-        );
-        sendResponse({ status: "analysis_triggered", lastChecked: Date.now() });
-      } else {
-        console.warn(
-          "[BG] requestAnalysisForCurrentTab: No valid domain for URL:",
-          urlToAnalyze
-        );
-        sendResponse({ error: "No valid domain.", lastChecked: Date.now() });
-      }
-    } else {
-      console.warn(
-        "[BG] requestAnalysisForCurrentTab: No URL provided or found in sender."
-      );
-      sendResponse({ error: "No active tab/URL.", lastChecked: Date.now() });
-    }
-    return true; // Niezbędne dla asynchronicznej odpowiedzi triggerAnalysisForUrl
-  }
-
-  if (message.action === "analyzePageContent") {
-    const { url, contentChunks } = message;
-    if (!url) {
-      console.error("[BG] analyzePageContent: URL missing in message.");
-      sendResponse({ success: false, error: "URL missing." });
-      return false;
-    }
-    const domain = getDomainFromUrl(url);
-    console.log(
-      `[BG] Received ${
-        contentChunks?.length || 0
-      } content chunks from content script for URL:`,
-      url
-    );
-    performFullAnalysis(url, contentChunks)
-      .then((data) => {
-        console.log(
-          `[BG] Analysis complete (after content chunks received) for ${domain}. Sending update.`
-        );
-        chrome.runtime
-          .sendMessage({ action: "analysisUpdated", domain, data, forUrl: url })
-          .catch((e) =>
-            console.warn(
-              "[BG] Error sending analysisUpdated (analyzePageContent):",
-              e.message
-            )
-          );
-        sendResponse({ success: true }); // Odpowiedź do content.ts
+          .catch(() => {}); // Suppress "no receiving end" error if popup is closed
+        sendResponse({ success: true });
       })
-      .catch((error) => {
-        console.error(
-          "[BG] Error in performFullAnalysis (from analyzePageContent):",
-          error
-        );
-        sendResponse({ success: false, error: error.message });
-      });
+      .catch((error) => sendResponse({ success: false, error: error.message }));
+    return true; // Keep the message channel open for async response
+  }
+
+  // This listener handles the manual refresh from the popup.
+  if (message.action === "requestAnalysisForCurrentTab") {
+    const tabToUse = sender.tab || message.tab;
+    const urlToAnalyze = tabToUse?.url || message.url;
+    const tabId = tabToUse?.id;
+
+    if (urlToAnalyze && tabId) {
+      console.log(`[BG] Manual refresh requested for ${urlToAnalyze}`);
+      updateBadge("...", "#F59E0B");
+      // Ask the content script to re-send its data.
+      chrome.tabs.sendMessage(tabId, { action: "getTextContentFromPage" });
+      sendResponse({ status: "refresh_triggered" });
+    } else {
+      sendResponse({ error: "No active tab/URL to refresh." });
+    }
     return true;
   }
 
-  if (message.action === "updateExtensionBadge") {
-    if (message.text !== undefined && message.color !== undefined) {
-      updateBadge(message.text, message.color);
-      sendResponse({ success: true });
-    } else {
-      sendResponse({ success: false, error: "Missing text/color for badge." });
-    }
-    return true; // Asynchroniczna odpowiedź nie jest tu potrzebna, ale zostawiam dla spójności
-  }
-  console.log(
-    "[BG] Message action not recognized or not handled:",
-    message.action
-  );
-  return false; // Zwróć false, jeśli nie obsługujesz akcji lub nie wysyłasz asynchronicznej odpowiedzi
+  return false;
 });
 
-console.log("[BG] Background script loaded and listeners attached (v1.0.3).");
+// When the user switches to a different tab, check for cached data.
+chrome.tabs.onActivated.addListener(async (activeInfo) => {
+  chrome.tabs.get(activeInfo.tabId, (tab) => {
+    if (tab.url) {
+      const domain = getDomainFromUrl(tab.url);
+      chrome.storage.local.get(domain, (result) => {
+        const cachedData: StoredDomainData | undefined = result[domain];
+        if (cachedData) {
+          console.log(`[BG] onActivated: Found cached data for ${domain}`);
+          updateBadgeWithScore(cachedData, tab.url!);
+        } else {
+          // If no cache, clear the badge. The content script will send data if available.
+          updateBadge("", "#777777");
+        }
+      });
+    }
+  });
+});
+console.log("[BG] Background script loaded and listeners attached (v1.2.1).");
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\components\ui\button.tsx
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\components\ui\button.tsx
 --------------------
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
@@ -907,7 +587,37 @@ Button.displayName = "Button";
 export { Button, buttonVariants };
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\components\ui\progress.tsx
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\components\ui\label.tsx
+--------------------
+"use client"
+
+import * as React from "react"
+import * as LabelPrimitive from "@radix-ui/react-label"
+import { cva, type VariantProps } from "class-variance-authority"
+
+import { cn } from "@/lib/utils"
+
+const labelVariants = cva(
+  "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+)
+
+const Label = React.forwardRef<
+  React.ElementRef<typeof LabelPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &
+    VariantProps<typeof labelVariants>
+>(({ className, ...props }, ref) => (
+  <LabelPrimitive.Root
+    ref={ref}
+    className={cn(labelVariants(), className)}
+    {...props}
+  />
+))
+Label.displayName = LabelPrimitive.Root.displayName
+
+export { Label }
+
+--------------------
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\components\ui\progress.tsx
 --------------------
 "use client";
 
@@ -936,7 +646,7 @@ Progress.displayName = ProgressPrimitive.Root.displayName;
 export { Progress };
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\components\ui\switch.tsx
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\components\ui\switch.tsx
 --------------------
 "use client"
 
@@ -969,7 +679,7 @@ Switch.displayName = SwitchPrimitives.Root.displayName
 export { Switch }
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\components\ui\tooltip.tsx
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\components\ui\tooltip.tsx
 --------------------
 "use client";
 
@@ -1003,106 +713,26 @@ TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\content\content.ts
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\content\content.ts
 --------------------
+// src/content/content.ts
+import { Readability } from "@mozilla/readability";
 import "../styles/globals.css";
 
-const MAX_TEXT_CHUNKS = 5;
-const MIN_CHUNK_LENGTH = 100;
-const TARGET_CHUNK_LENGTH = 300;
+const MAX_CHUNKS_FOR_ANALYSIS = 5;
+const CHUNK_SIZE = 2000;
 
-function isVisible(element: HTMLElement | null): boolean {
-  if (!(element instanceof HTMLElement)) return false;
-  const style = window.getComputedStyle(element);
-  const rect = element.getBoundingClientRect();
-  return (
-    style.display !== "none" &&
-    style.visibility !== "hidden" &&
-    style.opacity !== "0" &&
-    element.offsetParent !== null &&
-    rect.width > 0 &&
-    rect.height > 0 &&
-    rect.top < window.innerHeight &&
-    rect.bottom > 0 &&
-    rect.left < window.innerWidth &&
-    rect.right > 0
-  );
-}
+function extractAndSendContent() {
+  // Use a clone of the document to avoid side-effects on the live page.
+  const documentClone = document.cloneNode(true) as Document;
+  const reader = new Readability(documentClone);
+  const article = reader.parse();
 
-function extractVisibleTextChunks(): string[] {
-  const chunks: string[] = [];
-  let currentChunk = "";
-  const BANNED_TAGS = [
-    "script",
-    "style",
-    "noscript",
-    "iframe",
-    "canvas",
-    "svg",
-    "path",
-    "head",
-    "meta",
-    "link",
-  ];
-  // const LOW_PRIORITY_TAGS = ['button', 'a', 'nav', 'footer', 'header', 'figcaption', 'aside', 'details', 'summary']; // Zakomentowane, bo nieużywane
-
-  function traverseNodes(node: Node, depth = 0) {
-    if (chunks.length >= MAX_TEXT_CHUNKS * 2 || depth > 20) return;
-
-    if (node.nodeType === Node.TEXT_NODE) {
-      const parentElement = node.parentNode as HTMLElement;
-      if (parentElement && isVisible(parentElement)) {
-        const text = node.nodeValue?.replace(/\s+/g, " ").trim();
-        if (text && text.length > 5) {
-          const tagName = parentElement.tagName.toLowerCase();
-          if (BANNED_TAGS.includes(tagName)) return;
-
-          currentChunk += text + " ";
-          if (currentChunk.length >= TARGET_CHUNK_LENGTH) {
-            chunks.push(currentChunk.trim());
-            currentChunk = "";
-            if (chunks.length >= MAX_TEXT_CHUNKS * 2) return;
-          }
-        }
-      }
-    } else if (node.nodeType === Node.ELEMENT_NODE) {
-      const element = node as HTMLElement;
-      const tagName = element.tagName.toLowerCase();
-      if (BANNED_TAGS.includes(tagName)) return;
-
-      if (isVisible(element)) {
-        for (let i = 0; i < node.childNodes.length; i++) {
-          traverseNodes(node.childNodes[i], depth + 1);
-          if (chunks.length >= MAX_TEXT_CHUNKS * 2) return;
-        }
-      }
-    }
-  }
-
-  if (document.body) traverseNodes(document.body);
-
-  if (currentChunk.trim().length >= MIN_CHUNK_LENGTH)
-    chunks.push(currentChunk.trim());
-
-  // console.log("[ContentScript] Raw chunks extracted:", chunks.length); // Możesz odkomentować do debugowania
-  const filteredChunks = chunks
-    .filter((chunk) => chunk.length >= MIN_CHUNK_LENGTH)
-    .map((chunk) => chunk.substring(0, TARGET_CHUNK_LENGTH * 2))
-    .sort((a, b) => b.length - a.length)
-    .slice(0, MAX_TEXT_CHUNKS);
-  // console.log("[ContentScript] Filtered chunks for analysis:", filteredChunks.length); // Możesz odkomentować
-  return filteredChunks;
-}
-
-function sendTextToBackground() {
-  const textChunks = extractVisibleTextChunks();
-  if (
-    document.body.innerText.trim().length < MIN_CHUNK_LENGTH &&
-    textChunks.length === 0
-  ) {
+  if (!article || !article.textContent) {
     console.log(
-      "[ContentScript] Page content too short or no significant text chunks found."
+      "[ContentScript] Readability found no content. Sending empty chunks."
     );
+    // Still send a message so the background script knows content analysis was attempted but failed.
     chrome.runtime.sendMessage({
       action: "analyzePageContent",
       url: window.location.href,
@@ -1111,56 +741,72 @@ function sendTextToBackground() {
     return;
   }
 
+  const cleanText = article.textContent.replace(/\s+/g, " ").trim();
+  const chunks: string[] = [];
+  if (cleanText.length > 0) {
+    for (let i = 0; i < cleanText.length; i += CHUNK_SIZE) {
+      chunks.push(cleanText.substring(i, i + CHUNK_SIZE));
+    }
+  }
+
+  const finalChunks = chunks.slice(0, MAX_CHUNKS_FOR_ANALYSIS);
   console.log(
-    `[ContentScript] Sending ${textChunks.length} text chunks to background.`
+    `[ContentScript] Proactively sending ${finalChunks.length} chunks to background.`
   );
+
   chrome.runtime.sendMessage(
     {
       action: "analyzePageContent",
       url: window.location.href,
-      contentChunks: textChunks,
+      contentChunks: finalChunks,
     },
     (response) => {
-      if (chrome.runtime.lastError)
+      if (chrome.runtime.lastError) {
         console.warn(
-          "[CS] Error sending content:",
-          chrome.runtime.lastError.message
+          `[CS] Error sending content: ${chrome.runtime.lastError.message}`
         );
-      else if (response && !response.success)
-        console.warn("[CS] BG failed to process content:", response.error);
+      } else if (response && !response.success) {
+        console.warn(
+          "[CS] Background failed to process content:",
+          response.error
+        );
+      }
     }
   );
 }
 
+// This listener is now ONLY for handling manual refresh requests from the popup.
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "getTextContentFromPage") {
-    console.log("[ContentScript] Received getTextContentFromPage request.");
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        try {
-          sendTextToBackground();
-          sendResponse({ status: "processing_initiated_by_content" });
-        } catch (e) {
-          console.error(
-            "[ContentScript] Error in sendTextToBackground/sendResponse:",
-            e
-          );
-          sendResponse({
-            status: "error",
-            error: e instanceof Error ? e.message : String(e),
-          });
-        }
-      }, 50);
-    });
+    console.log("[ContentScript] Received manual refresh request.");
+    extractAndSendContent();
+    sendResponse({ status: "processing_initiated_by_manual_refresh" });
     return true;
   }
   return false;
 });
 
-console.log("[ContentScript] IsThisPhishy content script v1.0.3 loaded.");
+// Proactively run the analysis when the script is injected and the page is ready.
+if (
+  document.readyState === "complete" ||
+  document.readyState === "interactive"
+) {
+  // Small delay to ensure the page is fully settled.
+  setTimeout(extractAndSendContent, 500);
+} else {
+  window.addEventListener(
+    "load",
+    () => {
+      setTimeout(extractAndSendContent, 500);
+    },
+    { once: true }
+  );
+}
+
+console.log("[ContentScript] IsThisPhishy v1.2.0 loaded (proactive mode).");
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\lib\utils.ts
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\lib\utils.ts
 --------------------
 import type { ClassValue } from "clsx";
 import { clsx } from "clsx";
@@ -1171,7 +817,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\popup\index.html
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\popup\index.html
 --------------------
 <!doctype html>
 <html lang="en">
@@ -1189,7 +835,7 @@ File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\popup\index.html
 </html>
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\popup\popup-content.tsx
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\popup\popup-content.tsx
 --------------------
 // src/popup/popup-content.tsx
 "use client";
@@ -1311,7 +957,7 @@ export const PopupContent = () => {
 };
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\popup\popup.tsx
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\popup\popup.tsx
 --------------------
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -1327,7 +973,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 );
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\popup\components\ErrorDisplay.tsx
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\popup\components\ErrorDisplay.tsx
 --------------------
 // src/popup/components/ErrorDisplay.tsx
 import React from "react";
@@ -1361,7 +1007,7 @@ export const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
 );
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\popup\components\Header.tsx
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\popup\components\Header.tsx
 --------------------
 // src/popup/components/Header.tsx
 import React from "react";
@@ -1390,7 +1036,7 @@ export const Footer: React.FC = () => (
 );
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\popup\components\InfoRow.tsx
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\popup\components\InfoRow.tsx
 --------------------
 // src/popup/components/InfoRow.tsx
 import React from "react";
@@ -1501,7 +1147,7 @@ export const InfoRow: React.FC<InfoRowProps> = ({
 };
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\popup\components\LoadingIndicator.tsx
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\popup\components\LoadingIndicator.tsx
 --------------------
 // src/popup/components/LoadingIndicator.tsx
 import React from "react";
@@ -1521,7 +1167,7 @@ export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
 );
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\popup\components\ScoreDisplay.tsx
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\popup\components\ScoreDisplay.tsx
 --------------------
 // src/popup/components/ScoreDisplay.tsx
 import React from "react";
@@ -1614,7 +1260,7 @@ export const ScoreDisplay: React.FC<ScoreDisplayProps> = ({
 };
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\popup\components\ScoreExplanations.tsx
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\popup\components\ScoreExplanations.tsx
 --------------------
 // src/popup/components/ScoreExplanations.tsx
 import React, { useState } from "react";
@@ -1677,7 +1323,36 @@ export const ScoreExplanationsList: React.FC<ScoreExplanationsProps> = ({
 };
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\popup\hooks\useAnalysisData.ts
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\popup\consts\scorePoints.ts
+--------------------
+export const PTS = {
+  age: { y: -10, vy: -20, m: 8, vm: 12, unknown: -2 },
+  ssl: { v: 10, e: -18, p: -18, h: -22, es: -4, unknown: -5 },
+  bl: { l: -30, c: 6 },
+  ipInUrl: -15,
+  urlAi: {
+    ph90: -25,
+    ph70: -15,
+    ph50: -8,
+    lh90: 8,
+    lh70: 3,
+    error: -2,
+    neutral: 0,
+  },
+  contentAi: {
+    phChunkHighConf: -8,
+    phChunkMedConf: -4,
+    phChunkLowConf: -2,
+    manyPhishingChunksPenalty: -10,
+    noProblemDetected: 5,
+    noContentOrError: -1,
+  },
+  whoisPrivacy: { enabled: -2, explicitProblem: -5 },
+  dnsMx: { missingForShop: -5, presentForShop: 2, notApplicable: 0 },
+};
+
+--------------------
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\popup\hooks\useAnalysisData.ts
 --------------------
 // src/popup/hooks/useAnalysisData.ts
 import { useState, useEffect, useCallback } from "react";
@@ -1699,43 +1374,6 @@ export function useAnalysisData() {
     ScoreExplanation[]
   >([]);
 
-  const updateBadge = useCallback(
-    (score: number | null, error?: string | null, loading?: boolean): void => {
-      let text = "",
-        color = "#777777";
-      if (loading) {
-        text = "...";
-        color = "#F59E0B";
-      } else if (error) {
-        text = "!";
-        color = "#EF4444";
-      } else if (score !== null) {
-        text = score.toString();
-        if (score < 40) color = "#EF4444";
-        else if (score < 70) color = "#F59E0B";
-        else color = "#10B981";
-      }
-      try {
-        chrome.runtime.sendMessage(
-          { action: "updateExtensionBadge", text, color },
-          (response) => {
-            if (chrome.runtime.lastError) {
-              console.warn(
-                "[Hook] Badge update sendMessage error:",
-                chrome.runtime.lastError.message
-              );
-            } else if (response && !response.success) {
-              console.warn("[Hook] Background failed to update badge.");
-            }
-          }
-        );
-      } catch (e) {
-        console.warn("[Hook] Error trying to send badge update message:", e);
-      }
-    },
-    []
-  );
-
   const processData = useCallback(
     (data: StoredDomainData | null, urlForAnalysis: string) => {
       console.log(
@@ -1748,7 +1386,6 @@ export function useAnalysisData() {
         console.warn("[Hook] Error in received data:", data.error);
         setTrustScore(null);
         setScoreExplanations([]);
-        updateBadge(null, data.error, false);
       } else if (data?.analysis) {
         const { score, explanations } = calculateTrustScore(
           data,
@@ -1756,14 +1393,12 @@ export function useAnalysisData() {
         );
         setTrustScore(score);
         setScoreExplanations(explanations);
-        updateBadge(score, data.error, false); // Przekaż błąd, jeśli istnieje, nawet z częściowymi danymi
       } else {
         setTrustScore(null);
         setScoreExplanations([]);
-        updateBadge(null, null, isLoading || isRefreshing);
       }
     },
-    [updateBadge, isLoading, isRefreshing]
+    [] // This function is now fully stable
   );
 
   const fetchData = useCallback(
@@ -1785,8 +1420,8 @@ export function useAnalysisData() {
 
       if (forceRefresh) setIsRefreshing(true);
       else setIsLoading(true);
-      updateBadge(null, null, true);
 
+      // The background script will handle the badge update.
       chrome.runtime.sendMessage(
         {
           action: "requestAnalysisForCurrentTab",
@@ -1801,7 +1436,7 @@ export function useAnalysisData() {
             "For URL:",
             currentUrl
           );
-          let needsReset = true; // Czy resetować flagi ładowania
+          let needsReset = true;
 
           if (chrome.runtime.lastError) {
             console.error(
@@ -1819,7 +1454,7 @@ export function useAnalysisData() {
             console.log(
               "[Hook] Background is processing, will wait for 'analysisUpdated'."
             );
-            needsReset = false; // Nie resetuj, czekamy na inną wiadomość
+            needsReset = false;
           } else if (response?.error) {
             processData(response as StoredDomainData, currentUrl);
           } else if (response) {
@@ -1841,7 +1476,7 @@ export function useAnalysisData() {
         }
       );
     },
-    [currentUrl, currentDomain, processData, updateBadge]
+    [currentUrl, currentDomain, processData]
   );
 
   useEffect(() => {
@@ -1849,7 +1484,6 @@ export function useAnalysisData() {
       "[Hook] Initializing: attaching listeners, getting active tab."
     );
     setIsLoading(true);
-    updateBadge(null, null, true);
 
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const activeTab = tabs[0];
@@ -1875,11 +1509,10 @@ export function useAnalysisData() {
         setIsLoading(false);
       }
     });
-  }, []); // Uruchom tylko raz przy montażu hooka
+  }, [processData]);
 
   useEffect(() => {
     if (currentUrl && currentDomain && isLoading) {
-      // Dopiero gdy URL jest ustawiony i jesteśmy w stanie isLoading
       console.log(
         `[Hook] URL/Domain set (${currentUrl}). Checking cache or fetching.`
       );
@@ -1887,7 +1520,7 @@ export function useAnalysisData() {
         const cachedData: StoredDomainData | undefined = result[currentDomain];
         const fiveMinutes = 5 * 60 * 1000;
         if (
-          cachedData?.analysis && // Upewnij się, że kluczowe dane są w cache
+          cachedData?.analysis &&
           Date.now() - cachedData.lastChecked < fiveMinutes &&
           !cachedData.error
         ) {
@@ -1908,8 +1541,7 @@ export function useAnalysisData() {
         }
       });
     } else if (!currentUrl && isLoading) {
-      // Jeśli URL się nie ustawił, a nadal ładujemy
-      setIsLoading(false); // Zakończ ładowanie, bo nie ma co analizować
+      setIsLoading(false);
       processData(
         {
           error: "Nie można ustalić adresu URL aktywnej karty.",
@@ -1969,12 +1601,11 @@ export function useAnalysisData() {
 }
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\popup\services\scoreCalculator.ts
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\popup\services\scoreCalculator.tsx
 --------------------
-// src/popup/services/scoreCalculator.ts
 import {
   StoredDomainData,
-  PageContentAiAnalysis,
+  // PageContentAiAnalysis, // Już niepotrzebny tutaj bezpośrednio
 } from "@/types/domainAnalysis";
 import { formatDomainAge } from "../utils/helpers";
 import {
@@ -1992,7 +1623,7 @@ export interface ScoreExplanation {
   id: string;
   icon: React.ElementType;
   label: string;
-  valueText: string | React.ReactNode;
+  valueText: string | React.ReactNode; // Zmienione z string na string | React.ReactNode
   impact: ExplanationImpact;
   details: string;
   longDesc?: string | React.ReactNode;
@@ -2008,7 +1639,7 @@ const PTS = {
   cAi: { ah: -25, ap: -15, ml: 5, error: -5, noContent: 0 },
 };
 
-export function calculateTrustScore(
+export function calculateTrustScore( // ESLint może tu zgłaszać ostrzeżenie
   fullData: StoredDomainData | null | undefined,
   currentUrl: string
 ): { score: number | null; explanations: ScoreExplanation[] } {
@@ -2028,12 +1659,31 @@ export function calculateTrustScore(
   const MAX = 100,
     MIN = 0;
 
-  console.log("[ScoreCalc] Starting calculation. Initial score:", score);
+  console.log(
+    "[ScoreCalc] Starting calculation. Initial score:",
+    score,
+    "for URL:",
+    currentUrl
+  );
+  console.log(
+    "[ScoreCalc] DomainAnalysisDetails:",
+    JSON.parse(JSON.stringify(analysisData))
+  );
+  console.log(
+    "[ScoreCalc] UrlTextAnalysis:",
+    JSON.parse(JSON.stringify(urlAiAnalysis || {}))
+  );
+  console.log(
+    "[ScoreCalc] PageContentAnalyses:",
+    JSON.parse(JSON.stringify(contentAiAnalyses || []))
+  );
 
   const ageD = analysisData.domain_actual_age_days;
   let ageI: ExplanationImpact = "neutral",
     ageSE = "0 pkt";
+  let ageVT: string | React.ReactNode = "N/A";
   if (ageD !== null && typeof ageD !== "undefined") {
+    ageVT = formatDomainAge(ageD);
     if (ageD < 30) {
       score += PTS.age.vy;
       ageI = "negative";
@@ -2060,17 +1710,17 @@ export function calculateTrustScore(
     id: "age",
     icon: CalendarDays,
     label: "Wiek domeny",
-    valueText: formatDomainAge(ageD),
+    valueText: ageVT,
     impact: ageI,
     scoreEffect: ageSE,
     details: "Starsze domeny są generalnie bardziej wiarygodne.",
     longDesc:
-      "Nowo zarejestrowane domeny są często wykorzystywane w kampaniach phishingowych i innych oszustwach, ponieważ są tanie i łatwe do uzyskania. Domeny z dłuższą historią, które nie były zgłaszane jako złośliwe, budują pewien poziom zaufania.",
+      "Nowo zarejestrowane domeny są często wykorzystywane w kampaniach phishingowych...",
   });
 
   let sslI: ExplanationImpact = "negative",
     sslDet = "Strona nie używa szyfrowania HTTPS.",
-    sslVT: React.ReactNode = "Brak (HTTP)";
+    sslVT: string | React.ReactNode = "Brak (HTTP)";
   let tempSslSE = PTS.ssl.h;
   if (analysisData.parsed_url_scheme === "https") {
     tempSslSE = 0;
@@ -2103,12 +1753,13 @@ export function calculateTrustScore(
       sslI = "negative";
       sslVT = "Problem (HTTPS)";
       sslDet =
-        "Strona używa HTTPS, ale wystąpił problem z weryfikacją certyfikatu (np. jest on niekompletny, niepasujący do domeny, lub od niezaufanego wystawcy).";
+        "Strona używa HTTPS, ale wystąpił problem z weryfikacją certyfikatu...";
     }
   } else if (
     analysisData.ssl_info === null &&
     analysisData.parsed_url_scheme !== "https"
   ) {
+    // tempSslSE już jest PTS.ssl.h
     sslI = "negative";
     sslVT = "Brak (HTTP)";
     sslDet = "Strona nie używa szyfrowania HTTPS (HTTP).";
@@ -2129,77 +1780,73 @@ export function calculateTrustScore(
     details: sslDet,
     scoreEffect: sslSETxt,
     longDesc:
-      "Certyfikat SSL zapewnia szyfrowanie danych przesyłanych między Tobą a stroną, chroniąc je przed podsłuchem. Strony bez SSL (HTTP) lub z wygasłym/niepoprawnym certyfikatem są mniej bezpieczne, szczególnie jeśli podajesz na nich wrażliwe dane.",
+      "Certyfikat SSL zapewnia szyfrowanie danych przesyłanych między Tobą a stroną...",
   });
 
   let urlAiSEV = 0;
+  let urlAiVT: string | React.ReactNode = "Niedostępna";
+  let urlAiI: ExplanationImpact = "neutral";
+  let urlAiDet =
+    "Analiza AI adresu URL nie została przeprowadzona lub jest niedostępna.";
+
   if (urlAiAnalysis === null) {
+    // Jawny błąd z API
     urlAiSEV = PTS.urlAi.error;
-    explanations.push({
-      id: "aiUrl",
-      icon: ShieldQuestion,
-      label: "Analiza AI URL",
-      valueText: <span className="text-red-500">Błąd analizy</span>,
-      impact: "negative",
-      scoreEffect: `${urlAiSEV} pkt`,
-      details:
-        "Nie udało się przeprowadzić analizy AI dla tego URL z powodu błędu.",
-      longDesc:
-        "Czasami analiza AI może się nie udać z przyczyn technicznych. Nie wpływa to na inne aspekty oceny, ale uniemożliwia wykrycie specyficznych dla URL wzorców phishingu.",
-    });
+    urlAiVT = <span className="text-red-500">Błąd analizy</span>;
+    urlAiI = "negative";
+    urlAiDet =
+      "Nie udało się przeprowadzić analizy AI dla tego URL z powodu błędu.";
   } else if (urlAiAnalysis) {
-    let aiI: ExplanationImpact = "neutral";
+    // Analiza dostępna
+    urlAiVT = `${urlAiAnalysis.label} (${(
+      urlAiAnalysis.confidence * 100
+    ).toFixed(0)}%)`;
+    urlAiDet = `Model AI ocenił URL jako ${urlAiAnalysis.label.toLowerCase()} z ${(
+      urlAiAnalysis.confidence * 100
+    ).toFixed(0)}% pewnością.`;
     if (urlAiAnalysis.is_phishing) {
-      aiI = "negative";
+      urlAiI = "negative";
       if (urlAiAnalysis.confidence > 0.9) urlAiSEV = PTS.urlAi.ph;
       else urlAiSEV = PTS.urlAi.pm;
     } else if (urlAiAnalysis.confidence > 0.9) {
       urlAiSEV = PTS.urlAi.lh;
-      aiI = "positive";
+      urlAiI = "positive";
     } else {
       urlAiSEV = PTS.urlAi.ll;
-      aiI = "neutral";
+      urlAiI = "neutral";
     }
-    explanations.push({
-      id: "aiUrl",
-      icon: ShieldQuestion,
-      label: "Analiza AI URL",
-      valueText: `${urlAiAnalysis.label} (${(
-        urlAiAnalysis.confidence * 100
-      ).toFixed(0)}%)`,
-      impact: aiI,
-      scoreEffect: `${urlAiSEV > 0 ? "+" : ""}${urlAiSEV} pkt`,
-      details: `Model AI ocenił URL jako ${urlAiAnalysis.label.toLowerCase()} z ${(
-        urlAiAnalysis.confidence * 100
-      ).toFixed(0)}% pewnością.`,
-      longDesc:
-        "Sztuczna inteligencja analizuje strukturę i komponenty adresu URL w poszukiwaniu wzorców typowych dla phishingu lub złośliwych stron.",
-    });
   } else {
-    explanations.push({
-      id: "aiUrl",
-      icon: ShieldQuestion,
-      label: "Analiza AI URL",
-      valueText: <span className="text-gray-500">Niedostępna</span>,
-      impact: "neutral",
-      scoreEffect: "0 pkt",
-      details:
-        "Analiza AI adresu URL nie została przeprowadzona lub jest niedostępna dla tej strony.",
-    });
+    // urlAiAnalysis jest undefined - brak danych, ale niekoniecznie błąd
+    urlAiVT = <span className="text-gray-500">N/A (URL AI)</span>; // Zmieniony tekst
+    urlAiI = "neutral"; // Traktuj jako neutralny, jeśli brak danych
+    urlAiDet =
+      "Analiza AI adresu URL nie została jeszcze przeprowadzona lub dane nie są dostępne.";
   }
+  explanations.push({
+    id: "aiUrl",
+    icon: ShieldQuestion,
+    label: "Analiza AI URL",
+    valueText: urlAiVT,
+    impact: urlAiI,
+    scoreEffect: `${urlAiSEV > 0 ? "+" : ""}${urlAiSEV} pkt`,
+    details: urlAiDet,
+    longDesc:
+      "Sztuczna inteligencja analizuje strukturę i komponenty adresu URL...",
+  });
   score += urlAiSEV;
 
-  let cAiL: React.ReactNode = <span className="text-gray-500">N/A</span>;
+  let cAiVT: string | React.ReactNode = "N/A";
   let cAiI: ExplanationImpact = "neutral",
     cAiSEV = 0;
   let cAiDet =
     "Analiza treści strony nie została przeprowadzona lub brakło tekstu.";
-  let cAiLD: React.ReactNode =
-    "Analiza treści strony wyszukuje fragmenty mogące wskazywać na oszustwo. Pokazujemy do 3 najbardziej podejrzanych fragmentów, jeśli takie istnieją.";
+  let cAiLDReactNode: React.ReactNode =
+    "Analiza treści strony wyszukuje fragmenty mogące wskazywać na oszustwo...";
   const sChunksI: { label: string; conf: number; chunk: string }[] = [];
 
   if (contentAiAnalyses === null) {
-    cAiL = <span className="text-red-500">Błąd analizy treści</span>;
+    // Jawny błąd analizy treści z API
+    cAiVT = <span className="text-red-500">Błąd analizy treści</span>;
     cAiI = "negative";
     cAiSEV = PTS.cAi.error;
     cAiDet = "Wystąpił błąd podczas próby analizy treści strony.";
@@ -2222,71 +1869,89 @@ export function calculateTrustScore(
     if (hCP) {
       cAiSEV = PTS.cAi.ah;
       cAiI = "negative";
-      cAiL = <span className="text-red-500 font-semibold">Podejrzane!</span>;
+      cAiVT = (
+        <span className="text-red-500 font-semibold">Podejrzane Treści!</span>
+      );
       cAiDet = `Wykryto fragmenty treści o wysokim prawdopodobieństwie phishingu (${pC}/${contentAiAnalyses.length}).`;
     } else if (pC > 0) {
       const avgC = tCS / pC;
       if (avgC > 0.5) {
         cAiSEV = PTS.cAi.ap;
         cAiI = "negative";
-        cAiL = "Podejrzane fragmenty";
+        cAiVT = "Podejrzane fragmenty";
         cAiDet = `Wykryto ${pC} z ${contentAiAnalyses.length} fragmentów jako potencjalnie phishingowe.`;
       } else {
         cAiI = "info";
-        cAiL = "Niejednoznaczne";
+        cAiVT = "Niejednoznaczne";
         cAiDet = `Niektóre fragmenty (${pC}/${contentAiAnalyses.length}) wydają się niejednoznaczne.`;
       }
     } else {
       cAiSEV = PTS.cAi.ml;
       cAiI = "positive";
-      cAiL = "Treść OK";
+      cAiVT = "Treść OK";
       cAiDet = `Analiza treści (${contentAiAnalyses.length} fragmentów) nie wykazała znamion phishingu.`;
     }
 
     if (sChunksI.length > 0) {
-      cAiLD = (
-        <>
-          {typeof cAiLD === "string" ? <p>{cAiLD}</p> : cAiLD}
+      const listItems = sChunksI.slice(0, 3).map((s, i) => (
+        <li
+          key={`chunk-${i}-${s.chunk.slice(0, 5)}`}
+          title={s.chunk}
+          className="mb-1"
+        >
+          <span
+            className={`font-semibold ${
+              s.label === "PHISHING" ? "text-red-600" : "text-gray-700"
+            }`}
+          >
+            "{s.chunk.substring(0, 50)}..."
+          </span>
+          <span className="text-gray-500 ml-1">
+            ({s.label} {(s.conf * 100).toFixed(0)}%)
+          </span>
+        </li>
+      ));
+      cAiLDReactNode = (
+        <div>
+          <p>
+            {typeof cAiLDReactNode === "string"
+              ? cAiLDReactNode
+              : "Szczegóły analizy treści:"}
+          </p>
           <p className="mt-2 font-semibold">Podejrzane fragmenty:</p>
           <ul className="list-disc pl-5 max-h-24 overflow-y-auto text-xs custom-scrollbar">
-            {sChunksI.slice(0, 3).map((s, i) => (
-              <li key={i} title={s.chunk} className="mb-1">
-                <span
-                  className={`font-semibold ${
-                    s.label === "PHISHING" ? "text-red-600" : "text-gray-700"
-                  }`}
-                >
-                  "{s.chunk.substring(0, 50)}..."
-                </span>
-                <span className="text-gray-500 ml-1">
-                  ({s.label} {(s.conf * 100).toFixed(0)}%)
-                </span>
-              </li>
-            ))}
+            {listItems}
           </ul>
           {sChunksI.length > 3 && (
             <p className="text-xs mt-1">...i {sChunksI.length - 3} więcej.</p>
           )}
-        </>
+        </div>
       );
     }
   } else if (contentAiAnalyses && contentAiAnalyses.length === 0) {
+    // Analiza wykonana, ale brak chunków
     cAiSEV = PTS.cAi.noContent;
     cAiI = "info";
-    cAiL = "Brak tekstu";
+    cAiVT = "Brak tekstu do analizy";
     cAiDet =
       "Nie znaleziono wystarczającej ilości tekstu na stronie do przeprowadzenia pełnej analizy treści.";
+  } else {
+    // contentAiAnalyses jest undefined (nie było analizy, lub dane nie dotarły)
+    cAiVT = <span className="text-gray-500">N/A (treść)</span>;
+    cAiI = "neutral";
+    cAiDet =
+      "Analiza treści strony nie została jeszcze przeprowadzona lub dane nie są dostępne.";
   }
   score += cAiSEV;
   explanations.push({
     id: "contentAi",
     icon: MessageSquareQuote,
     label: "Analiza AI treści",
-    valueText: cAiL,
+    valueText: cAiVT,
     impact: cAiI,
     scoreEffect: `${cAiSEV > 0 ? "+" : ""}${cAiSEV} pkt`,
     details: cAiDet,
-    longDesc: cAiLD,
+    longDesc: cAiLDReactNode,
   });
 
   let onBl = false,
@@ -2311,8 +1976,7 @@ export function calculateTrustScore(
       scoreEffect: `${blSEV} pkt`,
       details:
         "Znalezienie na publicznej liście zagrożeń jest silnym sygnałem ostrzegawczym.",
-      longDesc:
-        "Te listy są kompilowane przez organizacje bezpieczeństwa i zawierają strony znane z hostowania malware, phishingu lub innych niebezpiecznych treści. Obecność na takiej liście oznacza wysokie ryzyko.",
+      longDesc: "Te listy są kompilowane przez organizacje bezpieczeństwa...",
     });
   } else {
     blSEV = PTS.bl.c;
@@ -2324,8 +1988,7 @@ export function calculateTrustScore(
       impact: "positive",
       scoreEffect: `+${blSEV} pkt`,
       details: "Nie znaleziono na znanych listach zagrożeń.",
-      longDesc:
-        "Brak wpisów na głównych listach zagrożeń to dobry znak, ale nie gwarantuje 100% bezpieczeństwa, zwłaszcza dla nowych stron.",
+      longDesc: "Brak wpisów na głównych listach zagrożeń to dobry znak...",
     });
   }
   score += blSEV;
@@ -2343,7 +2006,7 @@ export function calculateTrustScore(
       details:
         "Używanie adresu IP zamiast nazwy domenowej jest częstą taktyką w phishingu.",
       longDesc:
-        "Legalne strony rzadko używają adresów IP bezpośrednio w linkach widocznych dla użytkownika. Może to być próba obejścia filtrów opartych na nazwach domenowych lub ukrycia prawdziwego celu linku.",
+        "Legalne strony rzadko używają adresów IP bezpośrednio w linkach...",
     });
   } else {
     explanations.push({
@@ -2366,7 +2029,7 @@ export function calculateTrustScore(
 }
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\popup\utils\helpers.ts
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\popup\utils\helpers.ts
 --------------------
 // src/popup/utils/helpers.ts
 export const formatDomainAge = (days: number | null | undefined): string => {
@@ -2440,14 +2103,14 @@ export const getScoreVisuals = (
 };
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\styles\globals.css
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\styles\globals.css
 --------------------
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 --------------------
-File: C:\Users\mikol\Desktop\IsThisPhishy-addon\src\types\domainAnalysis.ts
+File: C:\Users\zieba\Desktop\stuff\IsThisPhishy-addon\src\types\domainAnalysis.ts
 --------------------
 export interface SSLInfo {
   issuer: { [key: string]: string } | null;

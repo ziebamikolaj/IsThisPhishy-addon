@@ -18,43 +18,6 @@ export function useAnalysisData() {
     ScoreExplanation[]
   >([]);
 
-  const updateBadge = useCallback(
-    (score: number | null, error?: string | null, loading?: boolean): void => {
-      let text = "",
-        color = "#777777";
-      if (loading) {
-        text = "...";
-        color = "#F59E0B";
-      } else if (error) {
-        text = "!";
-        color = "#EF4444";
-      } else if (score !== null) {
-        text = score.toString();
-        if (score < 40) color = "#EF4444";
-        else if (score < 70) color = "#F59E0B";
-        else color = "#10B981";
-      }
-      try {
-        chrome.runtime.sendMessage(
-          { action: "updateExtensionBadge", text, color },
-          (response) => {
-            if (chrome.runtime.lastError) {
-              console.warn(
-                "[Hook] Badge update sendMessage error:",
-                chrome.runtime.lastError.message
-              );
-            } else if (response && !response.success) {
-              console.warn("[Hook] Background failed to update badge.");
-            }
-          }
-        );
-      } catch (e) {
-        console.warn("[Hook] Error trying to send badge update message:", e);
-      }
-    },
-    []
-  );
-
   const processData = useCallback(
     (data: StoredDomainData | null, urlForAnalysis: string) => {
       console.log(
@@ -67,7 +30,6 @@ export function useAnalysisData() {
         console.warn("[Hook] Error in received data:", data.error);
         setTrustScore(null);
         setScoreExplanations([]);
-        updateBadge(null, data.error, false);
       } else if (data?.analysis) {
         const { score, explanations } = calculateTrustScore(
           data,
@@ -75,14 +37,12 @@ export function useAnalysisData() {
         );
         setTrustScore(score);
         setScoreExplanations(explanations);
-        updateBadge(score, data.error, false); // Przekaż błąd, jeśli istnieje, nawet z częściowymi danymi
       } else {
         setTrustScore(null);
         setScoreExplanations([]);
-        updateBadge(null, null, isLoading || isRefreshing);
       }
     },
-    [updateBadge, isLoading, isRefreshing]
+    [] // This function is now fully stable
   );
 
   const fetchData = useCallback(
@@ -104,8 +64,8 @@ export function useAnalysisData() {
 
       if (forceRefresh) setIsRefreshing(true);
       else setIsLoading(true);
-      updateBadge(null, null, true);
 
+      // The background script will handle the badge update.
       chrome.runtime.sendMessage(
         {
           action: "requestAnalysisForCurrentTab",
@@ -120,7 +80,7 @@ export function useAnalysisData() {
             "For URL:",
             currentUrl
           );
-          let needsReset = true; // Czy resetować flagi ładowania
+          let needsReset = true;
 
           if (chrome.runtime.lastError) {
             console.error(
@@ -138,7 +98,7 @@ export function useAnalysisData() {
             console.log(
               "[Hook] Background is processing, will wait for 'analysisUpdated'."
             );
-            needsReset = false; // Nie resetuj, czekamy na inną wiadomość
+            needsReset = false;
           } else if (response?.error) {
             processData(response as StoredDomainData, currentUrl);
           } else if (response) {
@@ -160,7 +120,7 @@ export function useAnalysisData() {
         }
       );
     },
-    [currentUrl, currentDomain, processData, updateBadge]
+    [currentUrl, currentDomain, processData]
   );
 
   useEffect(() => {
@@ -168,7 +128,6 @@ export function useAnalysisData() {
       "[Hook] Initializing: attaching listeners, getting active tab."
     );
     setIsLoading(true);
-    updateBadge(null, null, true);
 
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const activeTab = tabs[0];
@@ -194,11 +153,10 @@ export function useAnalysisData() {
         setIsLoading(false);
       }
     });
-  }, [processData, updateBadge]); // Uruchom tylko raz przy montażu hooka
+  }, [processData]);
 
   useEffect(() => {
     if (currentUrl && currentDomain && isLoading) {
-      // Dopiero gdy URL jest ustawiony i jesteśmy w stanie isLoading
       console.log(
         `[Hook] URL/Domain set (${currentUrl}). Checking cache or fetching.`
       );
@@ -206,7 +164,7 @@ export function useAnalysisData() {
         const cachedData: StoredDomainData | undefined = result[currentDomain];
         const fiveMinutes = 5 * 60 * 1000;
         if (
-          cachedData?.analysis && // Upewnij się, że kluczowe dane są w cache
+          cachedData?.analysis &&
           Date.now() - cachedData.lastChecked < fiveMinutes &&
           !cachedData.error
         ) {
@@ -227,8 +185,7 @@ export function useAnalysisData() {
         }
       });
     } else if (!currentUrl && isLoading) {
-      // Jeśli URL się nie ustawił, a nadal ładujemy
-      setIsLoading(false); // Zakończ ładowanie, bo nie ma co analizować
+      setIsLoading(false);
       processData(
         {
           error: "Nie można ustalić adresu URL aktywnej karty.",

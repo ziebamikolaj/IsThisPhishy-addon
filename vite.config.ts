@@ -7,7 +7,7 @@ function generateManifest() {
   return {
     manifest_version: 3,
     name: "IsThisFishy Extension (Dev)",
-    version: "1.0.3", // Podbij wersję
+    version: "1.0.3",
     description: "A browser extension to detect fishy content - DEV MODE",
     action: {
       default_popup: "src/popup/index.html",
@@ -20,16 +20,14 @@ function generateManifest() {
       {
         matches: ["<all_urls>"],
         js: ["src/content/content.ts"],
-        // css: ["style.css"], // Upewnij się, że to jest potrzebne lub usuń
       },
     ],
     icons: {
-      // Upewnij się, że to jest poprawnie zdefiniowane
       "16": "icon.png",
       "48": "icon.png",
       "128": "icon.png",
     },
-    permissions: ["activeTab", "storage", "tabs", "action", "scripting"],
+    permissions: ["activeTab", "storage", "tabs", "scripting"],
     host_permissions: ["http://127.0.0.1:8000/"],
   };
 }

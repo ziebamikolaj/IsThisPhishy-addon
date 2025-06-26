@@ -1,5 +1,3 @@
-// src/popup/services/scoreCalculator.tsx
-import React from "react"; // Potrzebne dla JSX (np. w longDesc)
 import {
   StoredDomainData,
   // PageContentAiAnalysis, // Już niepotrzebny tutaj bezpośrednio
