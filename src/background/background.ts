@@ -62,7 +62,7 @@ const fetchTextAnalysis = async (
   }
 };
 
-const performFullAnalysis = async (
+export const performFullAnalysis = async (
   urlToAnalyze: string,
   contentChunksForAnalysis: string[] = []
 ): Promise<StoredDomainData> => {
@@ -225,5 +225,8 @@ chrome.runtime.onInstalled.addListener(async (details) => {
     }
   }
 });
+import { runTests, runDownloadTest } from "./testRunner";
+(globalThis as any).runExtensionTests = runTests;
+(globalThis as any).runExtensionDownloadTest = runDownloadTest;
 
 console.log("[BG] Background script loaded and listeners attached (v1.2.1).");

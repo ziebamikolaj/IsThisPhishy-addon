@@ -27,7 +27,7 @@ function generateManifest() {
       "48": "icon.png",
       "128": "icon.png",
     },
-    permissions: ["activeTab", "storage", "tabs", "scripting"],
+    permissions: ["activeTab", "storage", "tabs", "scripting", "downloads"],
     host_permissions: ["<all_urls>"],
   };
 }
