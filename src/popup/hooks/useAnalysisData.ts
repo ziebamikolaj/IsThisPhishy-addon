@@ -11,6 +11,7 @@ export function useAnalysisData() {
   const [storedData, setStoredData] = useState<StoredDomainData | null>(null);
   const [currentUrl, setCurrentUrl] = useState<string>("");
   const [currentDomain, setCurrentDomain] = useState<string>("");
+  const [currentTabId, setCurrentTabId] = useState<number | undefined>();
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [trustScore, setTrustScore] = useState<number | null>(null);
@@ -72,6 +73,7 @@ export function useAnalysisData() {
           forceContentRefresh: forceContentFetch || forceRefresh,
           forDomain: currentDomain,
           url: currentUrl,
+          tabId: currentTabId,
         },
         (response) => {
           console.log(
@@ -120,7 +122,7 @@ export function useAnalysisData() {
         }
       );
     },
-    [currentUrl, currentDomain, processData]
+    [currentUrl, currentDomain, processData, currentTabId]
   );
 
   useEffect(() => {
@@ -139,10 +141,12 @@ export function useAnalysisData() {
         );
         setCurrentUrl(newUrl);
         setCurrentDomain(newDomain);
+        setCurrentTabId(activeTab.id);
       } else {
         console.warn("[Hook] No valid active tab URL for initialization.");
         setCurrentUrl("");
         setCurrentDomain("");
+        setCurrentTabId(activeTab.id);
         processData(
           {
             error: "Brak aktywnej strony http/https.",

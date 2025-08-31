@@ -14,7 +14,7 @@ export const Header: React.FC = () => (
 export const Footer: React.FC = () => (
   <div className="mt-auto pt-2 border-t border-gray-200 text-center">
     <a
-      href="https://github.com/MikiKru/IsThisPhishy-licencjat"
+      href="https://github.com/ziebamikolaj/IsThisPhishy-addon"
       target="_blank"
       rel="noopener noreferrer"
       className="text-xs text-blue-600 hover:underline hover:text-blue-800"

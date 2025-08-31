@@ -155,12 +155,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   // This listener handles the manual refresh from the popup.
   if (message.action === "requestAnalysisForCurrentTab") {
-    const tabToUse = sender.tab || message.tab;
-    const urlToAnalyze = tabToUse?.url || message.url;
-    const tabId = tabToUse?.id;
+    const urlToAnalyze = message.url;
+    const tabId = message.tabId || sender.tab?.id;
 
     if (urlToAnalyze && tabId) {
-      console.log(`[BG] Manual refresh requested for ${urlToAnalyze}`);
+      console.log(
+        `[BG] Manual refresh requested for ${urlToAnalyze} on tab ${tabId}`
+      );
       updateBadge("...", "#F59E0B");
       // Ask the content script to re-send its data.
       chrome.tabs.sendMessage(tabId, { action: "getTextContentFromPage" });
@@ -192,4 +193,35 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
     }
   });
 });
+chrome.runtime.onInstalled.addListener(async (details) => {
+  if (details.reason === "install" || details.reason === "update") {
+    console.log(
+      "[BG] Extension installed/updated. Injecting content scripts into existing tabs."
+    );
+
+    // Get all existing tabs
+    const tabs = await chrome.tabs.query({
+      // We only want to inject into normal http/https tabs
+      url: ["http://*/*", "https://*/*"],
+      status: "complete", // Only inject into tabs that have finished loading
+    });
+
+    for (const tab of tabs) {
+      if (tab.id) {
+        try {
+          // Programmatically inject the content script
+          await chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            files: ["src/content/content.js"],
+          });
+          console.log(`[BG] Injected content script into tab ${tab.id}`);
+        } catch (err) {
+          // This might fail on certain browser-protected pages, which is fine.
+          console.warn(`[BG] Failed to inject script into tab ${tab.id}:`, err);
+        }
+      }
+    }
+  }
+});
+
 console.log("[BG] Background script loaded and listeners attached (v1.2.1).");
