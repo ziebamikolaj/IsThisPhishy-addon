@@ -188,15 +188,6 @@ export function useAnalysisData() {
           fetchData(false, true);
         }
       });
-    } else if (!currentUrl && isLoading) {
-      setIsLoading(false);
-      processData(
-        {
-          error: "Nie można ustalić adresu URL aktywnej karty.",
-          lastChecked: Date.now(),
-        },
-        ""
-      );
     }
   }, [currentUrl, currentDomain, isLoading, fetchData, processData]);
 

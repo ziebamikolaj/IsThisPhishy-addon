@@ -89,6 +89,8 @@ const performFullAnalysis = async (
     }
     const domainAnalysis: DomainAnalysisDetails =
       await domainDetailsResponse.json();
+
+    console.log(domainAnalysis);
     if (domainAnalysis.error) {
       return { error: domainAnalysis.error, lastChecked: Date.now() };
     }

@@ -1,8 +1,6 @@
-import {
-  StoredDomainData,
-  // PageContentAiAnalysis, // Już niepotrzebny tutaj bezpośrednio
-} from "@/types/domainAnalysis";
-import { formatDomainAge } from "../utils/helpers";
+// src/popup/services/scoreCalculator.tsx
+
+import { StoredDomainData } from "@/types/domainAnalysis";
 import {
   ShieldQuestion,
   CalendarDays,
@@ -11,30 +9,31 @@ import {
   ShieldCheck,
   Network,
   MessageSquareQuote,
+  Mail,
 } from "lucide-react";
+
+// Simple formatDomainAge implementation
+const formatDomainAge = (days: number): string => {
+  if (days < 30) return `${days} dni`;
+  if (days < 365) return `${Math.floor(days / 30)} mies.`;
+  return `${Math.floor(days / 365)} lat`;
+};
 
 export type ExplanationImpact = "positive" | "negative" | "neutral" | "info";
 export interface ScoreExplanation {
   id: string;
   icon: React.ElementType;
   label: string;
-  valueText: string | React.ReactNode; // Zmienione z string na string | React.ReactNode
+  valueText: string | React.ReactNode;
   impact: ExplanationImpact;
   details: string;
   longDesc?: string | React.ReactNode;
   scoreEffect?: string;
 }
 
-const PTS = {
-  age: { y: -15, vy: -25, m: 10, vm: 15, unknown: -5 },
-  ssl: { v: 10, e: -20, p: -20, h: -25, es: -5, unknown: -10 },
-  bl: { l: -35, c: 5 },
-  ip: -20,
-  urlAi: { ph: -30, pm: -15, lh: 10, ll: 0, error: -5 },
-  cAi: { ah: -25, ap: -15, ml: 5, error: -5, noContent: 0 },
-};
+import { PTS } from "../consts/scorePoints";
 
-export function calculateTrustScore( // ESLint może tu zgłaszać ostrzeżenie
+export function calculateTrustScore(
   fullData: StoredDomainData | null | undefined,
   currentUrl: string
 ): { score: number | null; explanations: ScoreExplanation[] } {
@@ -73,6 +72,7 @@ export function calculateTrustScore( // ESLint może tu zgłaszać ostrzeżenie
     JSON.parse(JSON.stringify(contentAiAnalyses || []))
   );
 
+  // Domain Age
   const ageD = analysisData.domain_actual_age_days;
   let ageI: ExplanationImpact = "neutral",
     ageSE = "0 pkt";
@@ -113,6 +113,7 @@ export function calculateTrustScore( // ESLint może tu zgłaszać ostrzeżenie
       "Nowo zarejestrowane domeny są często wykorzystywane w kampaniach phishingowych...",
   });
 
+  // SSL
   let sslI: ExplanationImpact = "negative",
     sslDet = "Strona nie używa szyfrowania HTTPS.",
     sslVT: string | React.ReactNode = "Brak (HTTP)";
@@ -154,7 +155,6 @@ export function calculateTrustScore( // ESLint może tu zgłaszać ostrzeżenie
     analysisData.ssl_info === null &&
     analysisData.parsed_url_scheme !== "https"
   ) {
-    // tempSslSE już jest PTS.ssl.h
     sslI = "negative";
     sslVT = "Brak (HTTP)";
     sslDet = "Strona nie używa szyfrowania HTTPS (HTTP).";
@@ -178,6 +178,7 @@ export function calculateTrustScore( // ESLint może tu zgłaszać ostrzeżenie
       "Certyfikat SSL zapewnia szyfrowanie danych przesyłanych między Tobą a stroną...",
   });
 
+  // URL AI Analysis
   let urlAiSEV = 0;
   let urlAiVT: string | React.ReactNode = "Niedostępna";
   let urlAiI: ExplanationImpact = "neutral";
@@ -185,14 +186,12 @@ export function calculateTrustScore( // ESLint może tu zgłaszać ostrzeżenie
     "Analiza AI adresu URL nie została przeprowadzona lub jest niedostępna.";
 
   if (urlAiAnalysis === null) {
-    // Jawny błąd z API
     urlAiSEV = PTS.urlAi.error;
     urlAiVT = <span className="text-red-500">Błąd analizy</span>;
     urlAiI = "negative";
     urlAiDet =
       "Nie udało się przeprowadzić analizy AI dla tego URL z powodu błędu.";
   } else if (urlAiAnalysis) {
-    // Analiza dostępna
     urlAiVT = `${urlAiAnalysis.label} (${(
       urlAiAnalysis.confidence * 100
     ).toFixed(0)}%)`;
@@ -201,19 +200,21 @@ export function calculateTrustScore( // ESLint może tu zgłaszać ostrzeżenie
     ).toFixed(0)}% pewnością.`;
     if (urlAiAnalysis.is_phishing) {
       urlAiI = "negative";
-      if (urlAiAnalysis.confidence > 0.9) urlAiSEV = PTS.urlAi.ph;
-      else urlAiSEV = PTS.urlAi.pm;
-    } else if (urlAiAnalysis.confidence > 0.9) {
-      urlAiSEV = PTS.urlAi.lh;
-      urlAiI = "positive";
+      if (urlAiAnalysis.confidence >= 0.9) urlAiSEV = PTS.urlAi.ph90;
+      else if (urlAiAnalysis.confidence >= 0.7) urlAiSEV = PTS.urlAi.ph70;
+      else urlAiSEV = PTS.urlAi.ph50;
     } else {
-      urlAiSEV = PTS.urlAi.ll;
-      urlAiI = "neutral";
+      urlAiI = urlAiAnalysis.confidence >= 0.9 ? "positive" : "neutral";
+      urlAiSEV =
+        urlAiAnalysis.confidence >= 0.9
+          ? PTS.urlAi.lh90
+          : urlAiAnalysis.confidence >= 0.7
+          ? PTS.urlAi.lh70
+          : PTS.urlAi.neutral;
     }
   } else {
-    // urlAiAnalysis jest undefined - brak danych, ale niekoniecznie błąd
-    urlAiVT = <span className="text-gray-500">N/A (URL AI)</span>; // Zmieniony tekst
-    urlAiI = "neutral"; // Traktuj jako neutralny, jeśli brak danych
+    urlAiVT = <span className="text-gray-500">N/A (URL AI)</span>;
+    urlAiI = "neutral";
     urlAiDet =
       "Analiza AI adresu URL nie została jeszcze przeprowadzona lub dane nie są dostępne.";
   }
@@ -230,6 +231,7 @@ export function calculateTrustScore( // ESLint może tu zgłaszać ostrzeżenie
   });
   score += urlAiSEV;
 
+  // Content AI Analysis
   let cAiVT: string | React.ReactNode = "N/A";
   let cAiI: ExplanationImpact = "neutral",
     cAiSEV = 0;
@@ -240,20 +242,21 @@ export function calculateTrustScore( // ESLint może tu zgłaszać ostrzeżenie
   const sChunksI: { label: string; conf: number; chunk: string }[] = [];
 
   if (contentAiAnalyses === null) {
-    // Jawny błąd analizy treści z API
     cAiVT = <span className="text-red-500">Błąd analizy treści</span>;
     cAiI = "negative";
-    cAiSEV = PTS.cAi.error;
+    cAiSEV = PTS.contentAi.noContentOrError;
     cAiDet = "Wystąpił błąd podczas próby analizy treści strony.";
   } else if (contentAiAnalyses && contentAiAnalyses.length > 0) {
     let pC = 0,
       hCP = false,
-      tCS = 0;
+      mCP = false,
+      lCP = false;
     contentAiAnalyses.forEach((ca) => {
       if (ca.is_phishing) {
         pC++;
-        tCS += ca.confidence;
-        if (ca.confidence > 0.9) hCP = true;
+        if (ca.confidence >= 0.9) hCP = true;
+        else if (ca.confidence >= 0.7) mCP = true;
+        else if (ca.confidence >= 0.5) lCP = true;
         sChunksI.push({
           label: ca.label,
           conf: ca.confidence,
@@ -261,27 +264,39 @@ export function calculateTrustScore( // ESLint może tu zgłaszać ostrzeżenie
         });
       }
     });
-    if (hCP) {
-      cAiSEV = PTS.cAi.ah;
-      cAiI = "negative";
-      cAiVT = (
-        <span className="text-red-500 font-semibold">Podejrzane Treści!</span>
-      );
-      cAiDet = `Wykryto fragmenty treści o wysokim prawdopodobieństwie phishingu (${pC}/${contentAiAnalyses.length}).`;
-    } else if (pC > 0) {
-      const avgC = tCS / pC;
-      if (avgC > 0.5) {
-        cAiSEV = PTS.cAi.ap;
+
+    if (pC > 0) {
+      // Calculate penalty only if phishing chunks are found
+      if (hCP) {
+        cAiSEV = PTS.contentAi.phChunkHighConf;
+        cAiI = "negative";
+        cAiVT = (
+          <span className="text-red-500 font-semibold">Podejrzane Treści!</span>
+        );
+        cAiDet = `Wykryto fragmenty treści o wysokim prawdopodobieństwie phishingu (${pC}/${contentAiAnalyses.length}).`;
+      } else if (mCP) {
+        cAiSEV = PTS.contentAi.phChunkMedConf;
         cAiI = "negative";
         cAiVT = "Podejrzane fragmenty";
         cAiDet = `Wykryto ${pC} z ${contentAiAnalyses.length} fragmentów jako potencjalnie phishingowe.`;
-      } else {
-        cAiI = "info";
-        cAiVT = "Niejednoznaczne";
-        cAiDet = `Niektóre fragmenty (${pC}/${contentAiAnalyses.length}) wydają się niejednoznaczne.`;
+      } else if (lCP) {
+        cAiSEV = PTS.contentAi.phChunkLowConf;
+        cAiI = "negative";
+        cAiVT = "Niejednoznaczne fragmenty";
+        cAiDet = `Wykryto ${pC} z ${contentAiAnalyses.length} fragmentów jako potencjalnie phishingowe.`;
       }
+
+      if (pC >= 3) {
+        cAiSEV += PTS.contentAi.manyPhishingChunksPenalty;
+        cAiDet += " Znaleziono wiele podejrzanych fragmentów.";
+      }
+
+      // <<< THIS IS THE FIX >>>
+      // Cap the total penalty at -10 to prevent it from being too harsh.
+      cAiSEV = Math.max(cAiSEV, -10);
     } else {
-      cAiSEV = PTS.cAi.ml;
+      // No phishing chunks were found
+      cAiSEV = PTS.contentAi.noProblemDetected;
       cAiI = "positive";
       cAiVT = "Treść OK";
       cAiDet = `Analiza treści (${contentAiAnalyses.length} fragmentów) nie wykazała znamion phishingu.`;
@@ -324,14 +339,12 @@ export function calculateTrustScore( // ESLint może tu zgłaszać ostrzeżenie
       );
     }
   } else if (contentAiAnalyses && contentAiAnalyses.length === 0) {
-    // Analiza wykonana, ale brak chunków
-    cAiSEV = PTS.cAi.noContent;
+    cAiSEV = PTS.contentAi.noContentOrError;
     cAiI = "info";
     cAiVT = "Brak tekstu do analizy";
     cAiDet =
       "Nie znaleziono wystarczającej ilości tekstu na stronie do przeprowadzenia pełnej analizy treści.";
   } else {
-    // contentAiAnalyses jest undefined (nie było analizy, lub dane nie dotarły)
     cAiVT = <span className="text-gray-500">N/A (treść)</span>;
     cAiI = "neutral";
     cAiDet =
@@ -349,29 +362,33 @@ export function calculateTrustScore( // ESLint może tu zgłaszać ostrzeżenie
     longDesc: cAiLDReactNode,
   });
 
-  let onBl = false,
-    blSEV = 0;
-  const blSrc: string[] = [];
+  // Blacklist
+  let blSEV = 0;
+  const listedSources: string[] = [];
   if (analysisData.blacklist_checks) {
     analysisData.blacklist_checks.forEach((c) => {
       if (c.is_listed) {
-        onBl = true;
-        blSrc.push(c.source);
+        listedSources.push(c.source);
       }
     });
   }
-  if (onBl) {
-    blSEV = PTS.bl.l;
+  if (listedSources.length > 0) {
+    blSEV = PTS.bl.l; // Base penalty
+    if (listedSources.length > 1) {
+      blSEV += PTS.bl.multiple * (listedSources.length - 1); // Additional penalty
+    }
     explanations.push({
       id: "blacklist",
       icon: ShieldAlert,
       label: "Listy zagrożeń",
-      valueText: `Na listach: ${blSrc.join(", ")}`,
+      valueText: `Na listach: ${listedSources.join(", ")}`,
       impact: "negative",
       scoreEffect: `${blSEV} pkt`,
-      details:
-        "Znalezienie na publicznej liście zagrożeń jest silnym sygnałem ostrzegawczym.",
-      longDesc: "Te listy są kompilowane przez organizacje bezpieczeństwa...",
+      details: `Znalezienie domeny/URL na publicznych listach zagrożeń (${listedSources.join(
+        ", "
+      )}) jest silnym sygnałem ostrzegawczym.`,
+      longDesc:
+        "Listy te są kompilowane przez organizacje bezpieczeństwa w celu śledzenia złośliwych witryn internetowych.",
     });
   } else {
     blSEV = PTS.bl.c;
@@ -382,15 +399,18 @@ export function calculateTrustScore( // ESLint może tu zgłaszać ostrzeżenie
       valueText: "Czysto",
       impact: "positive",
       scoreEffect: `+${blSEV} pkt`,
-      details: "Nie znaleziono na znanych listach zagrożeń.",
-      longDesc: "Brak wpisów na głównych listach zagrożeń to dobry znak...",
+      details:
+        "Nie znaleziono na znanych listach zagrożeń (m.in. PhishTank, CERT.PL, OpenPhish, Google Safe Browsing).",
+      longDesc:
+        "Brak wpisów na głównych listach zagrożeń to dobry znak, wskazujący, że strona nie została publicznie oznaczona jako złośliwa.",
     });
   }
   score += blSEV;
 
+  // IP in URL
   let ipUrlSEV = 0;
   if (analysisData.is_ip_address_in_url) {
-    ipUrlSEV = PTS.ip;
+    ipUrlSEV = PTS.ipInUrl;
     explanations.push({
       id: "ipInUrl",
       icon: Network,
@@ -415,6 +435,41 @@ export function calculateTrustScore( // ESLint może tu zgłaszać ostrzeżenie
     });
   }
   score += ipUrlSEV;
+
+  // DNS MX Records
+  let dnsMxSEV = 0;
+  let dnsMxVT: string | React.ReactNode = "N/A";
+  let dnsMxI: ExplanationImpact = "neutral";
+  let dnsMxDet = "Brak danych o rekordach MX.";
+
+  if (analysisData.dns_records && analysisData.dns_records.MX) {
+    if (analysisData.dns_records.MX.length === 0) {
+      dnsMxSEV = PTS.dnsMx.missingForShop;
+      dnsMxVT = "Brak";
+      dnsMxI = "negative";
+      dnsMxDet = "Brak rekordów MX dla domeny.";
+    } else {
+      dnsMxSEV = PTS.dnsMx.presentForShop;
+      dnsMxVT = "Obecne";
+      dnsMxI = "positive";
+      dnsMxDet = "Rekordy MX obecne dla domeny.";
+    }
+  } else {
+    dnsMxSEV = PTS.dnsMx.notApplicable;
+    dnsMxVT = "Nie dotyczy";
+    dnsMxDet = "Brak danych o rekordach MX.";
+  }
+  score += dnsMxSEV;
+  explanations.push({
+    id: "dnsMx",
+    icon: Mail,
+    label: "Rekordy MX",
+    valueText: dnsMxVT,
+    impact: dnsMxI,
+    scoreEffect: `${dnsMxSEV > 0 ? "+" : ""}${dnsMxSEV} pkt`,
+    details: dnsMxDet,
+    longDesc: "Rekordy MX wskazują serwery pocztowe dla domeny...",
+  });
 
   const finalScore = Math.max(MIN, Math.min(MAX, Math.round(score)));
   console.log(
