@@ -1,0 +1,25 @@
+export const PTS = {
+  age: { y: -10, vy: -20, m: 10, vm: 20, unknown: -2 },
+  ssl: { v: 10, e: -18, p: -18, h: -22, es: -4, unknown: -5 },
+  bl: { l: -30, c: 6, multiple: -10 },
+  ipInUrl: -15,
+  urlAi: {
+    ph90: -5,
+    ph70: -3,
+    ph50: -1,
+    lh90: 5,
+    lh70: 3,
+    error: -2,
+    neutral: 0,
+  },
+  contentAi: {
+    phChunkHighConf: -8,
+    phChunkMedConf: -4,
+    phChunkLowConf: -2,
+    manyPhishingChunksPenalty: -10,
+    noProblemDetected: 5,
+    noContentOrError: -1,
+  },
+  whoisPrivacy: { enabled: -2, explicitProblem: -5 },
+  dnsMx: { missingForShop: -5, presentForShop: 2, notApplicable: 0 },
+};
